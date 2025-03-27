@@ -13,7 +13,6 @@ public class Courier {
         this.firstName = firstName;
     }
 
-
     public Courier() {
 
     }

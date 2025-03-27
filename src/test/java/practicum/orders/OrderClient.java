@@ -1,19 +1,50 @@
 package practicum.orders;
 
 import io.qameta.allure.Step;
-import io.restassured.response.Response;
+import io.restassured.http.ContentType;
 
-import java.util.Map;
+import io.restassured.response.ValidatableResponse;
+
 
 import static io.restassured.RestAssured.given;
+import static practicum.EnvConfig.BASE_URI;
 
 public class OrderClient {
+
+    public static final String ORDER = "api/v1/orders";
+    public static final String CANCEL_ORDER = "api/v1/orders/cancel";
+
+
     @Step("Отменить заказ")
-    public Response cancelOrder(int track){
+    public ValidatableResponse cancelOrder(java.lang.Object track) {
         return given().log().all()
-                .body(Map.of("track", track))
+                .contentType(ContentType.JSON)
+                .baseUri(BASE_URI)
+                .body(track)
                 .when()
-                .put("orders/cancel");
+                .put(CANCEL_ORDER)
+                .then();
+    }
+
+    @Step("Получить список заказов")
+    public ValidatableResponse getOrderList() {
+        return given().log().all()
+                .contentType(ContentType.JSON)
+                .baseUri(BASE_URI)
+                .when()
+                .get(ORDER)
+                .then();
+    }
+
+    @Step("Создать заказ")
+    public ValidatableResponse createNewOrder(Order order) {
+        return given().log().all()
+                .contentType(ContentType.JSON)
+                .baseUri(BASE_URI)
+                .body(order)
+                .when()
+                .post(ORDER)
+                .then();
 
     }
 }
