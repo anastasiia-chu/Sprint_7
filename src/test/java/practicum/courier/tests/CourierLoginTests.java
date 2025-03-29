@@ -37,6 +37,7 @@ public class CourierLoginTests {
     public void authorizationTest() {
         ValidatableResponse response = courierClient.loginCourier(courier);
         response.assertThat().body("id", Matchers.notNullValue()).and().statusCode(200);
+        courierId = response.extract().path("id");
 
     }
 

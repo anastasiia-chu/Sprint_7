@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 @RunWith(Parameterized.class)
 public class CreateOrderTests {
     private Order order;
-    java.lang.Object track;
+    int track;
 
     public CreateOrderTests(Order order) {
         this.order = order;
@@ -59,10 +59,10 @@ public class CreateOrderTests {
     public void createOrderTest() {
         OrderClient clientStep = new OrderClient();
         ValidatableResponse responseCreateOrder = clientStep.createNewOrder(order);
-        track = responseCreateOrder.extract().path("track");
         responseCreateOrder.assertThat()
                 .statusCode(201)
                 .body("track", notNullValue());
+        track = responseCreateOrder.extract().path("track");
     }
 
     @After

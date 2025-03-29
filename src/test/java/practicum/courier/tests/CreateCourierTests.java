@@ -40,6 +40,7 @@ public class CreateCourierTests {
         response.assertThat().body("ok", Matchers.is(true)).and().statusCode(201);
         ValidatableResponse loginResponse = courierClient.loginCourier(courier);
         courierId = loginResponse.extract().path("id");
+        System.out.println("Вот это айди удаляем: " + courierId);
     }
 
     @Test
@@ -76,6 +77,15 @@ public class CreateCourierTests {
         ValidatableResponse response = courierClient.createCourier(courier);
         response.assertThat().body("message", Matchers.notNullValue()).and().statusCode(400);
     }
+
+    @Test
+    @DisplayName("Попытка создания курьера с уже использованными ранее данными")
+    public void createCourierWithAlreadyUsedDataTest() {
+        courierClient.createCourier(courier);
+        ValidatableResponse response = courierClient.createCourier(courier);
+        response.assertThat().body("message", Matchers.notNullValue()).and().statusCode(409);
+    }
+
 
     @After
     public void deleteCourier() {

@@ -16,11 +16,11 @@ public class OrderClient {
 
 
     @Step("Отменить заказ")
-    public ValidatableResponse cancelOrder(java.lang.Object track) {
+    public ValidatableResponse cancelOrder(int track) {
         return given().log().all()
                 .contentType(ContentType.JSON)
                 .baseUri(BASE_URI)
-                .body(track)
+                .queryParam("track", track)
                 .when()
                 .put(CANCEL_ORDER)
                 .then();
