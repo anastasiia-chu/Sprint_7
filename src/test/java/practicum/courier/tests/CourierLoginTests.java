@@ -96,6 +96,8 @@ public class CourierLoginTests {
     @After
     @Step("Удалить курьера")
     public void deleteCourier() {
+        ValidatableResponse response = courierClient.loginCourier(courier);
+        courierId = response.extract().path("id");
         if (courierId != 0) {
             courierClient.deleteCourier(courierId);
         }

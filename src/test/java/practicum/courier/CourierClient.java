@@ -14,7 +14,7 @@ import static practicum.EnvConfig.BASE_URI;
 public class CourierClient {
 
     private static final String COURIER = "/api/v1/courier";
-    protected final String DELETE_COURIER = "api/v1/courier/";
+    private static final String DELETE_COURIER = "api/v1/courier/";
 
     @Step("Создание курьера")
     public ValidatableResponse createCourier(Courier courier) {

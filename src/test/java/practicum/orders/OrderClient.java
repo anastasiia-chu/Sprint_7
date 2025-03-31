@@ -11,8 +11,8 @@ import static practicum.EnvConfig.BASE_URI;
 
 public class OrderClient {
 
-    public static final String ORDER = "api/v1/orders";
-    public static final String CANCEL_ORDER = "api/v1/orders/cancel";
+    private static final String ORDER = "api/v1/orders";
+    private static final String CANCEL_ORDER = "api/v1/orders/cancel";
 
 
     @Step("Отменить заказ")
